@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Projects — Studio Artha Design</title>
+<meta name="description" content="Explore our portfolio of residential, commercial and cultural architecture projects by Studio Artha Design, Sangli.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --white:#ffffff;--off-white:#f6f6f4;--paper:#f0efec;
+  --lg:#e4e4e0;--mg:#aeada8;--dg:#5a5a56;
+  --charcoal:#2c2c2a;--black:#111110;--accent:#8c8c84;
+  --gold:#9a7c3f;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Jost',sans-serif;background:var(--off-white);color:var(--charcoal);overflow-x:hidden;}
+
+/* ── CURSOR ── */
+.cur{width:7px;height:7px;background:var(--black);border-radius:50%;position:fixed;pointer-events:none;z-index:10000;transform:translate(-50%,-50%);transition:width .3s,height .3s;}
+.cur-ring{width:32px;height:32px;border:1px solid #aaa;border-radius:50%;position:fixed;pointer-events:none;z-index:10000;transform:translate(-50%,-50%);transition:width .4s,height .4s;}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  padding:1.4rem 4rem;display:flex;justify-content:space-between;align-items:center;
+  background:rgba(246,246,244,.93);backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--lg);
+}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.55rem;font-weight:400;letter-spacing:.2em;color:var(--black);text-decoration:none;text-transform:uppercase;}
+.nav-links{display:flex;gap:2.4rem;list-style:none;}
+.nav-links a{font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--dg);text-decoration:none;transition:color .3s;}
+.nav-links a:hover,.nav-links a.active{color:var(--black);}
+.nav-cta{font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:#fff;background:var(--black);padding:.6rem 1.4rem;text-decoration:none;transition:background .3s;}
+.nav-cta:hover{background:var(--dg);}
+
+/* ── PAGE HERO ── */
+.page-hero{
+  padding:9rem 5rem 4rem;
+  background:var(--black);
+  position:relative;overflow:hidden;
+}
+.page-hero::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:1px;
+  background:linear-gradient(to right,transparent,#333,transparent);
+}
+.ph-eyebrow{font-size:.55rem;letter-spacing:.45em;text-transform:uppercase;color:#555;margin-bottom:1rem;display:block;}
+.ph-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(3rem,6vw,7rem);
+  font-weight:300;color:#fff;line-height:1;
+  margin-bottom:1.2rem;
+}
+.ph-title em{font-style:italic;color:#666;}
+.ph-desc{font-size:.7rem;line-height:1.8;color:#555;max-width:500px;font-weight:300;letter-spacing:.03em;}
+
+/* ── FILTER BAR ── */
+.filter-bar{
+  background:#fff;
+  border-bottom:1px solid var(--lg);
+  padding:1.2rem 5rem;
+  display:flex;justify-content:space-between;align-items:center;
+  position:sticky;top:68px;z-index:100;
+  flex-wrap:wrap;gap:1rem;
+}
+.filters{display:flex;gap:.6rem;flex-wrap:wrap;}
+.filter-btn{
+  font-family:'Jost',sans-serif;font-size:.68rem;font-weight:400;
+  color:var(--charcoal);background:transparent;
+  border:1.5px solid var(--lg);border-radius:999px;
+  padding:.5rem 1.2rem;cursor:pointer;
+  transition:all .25s;white-space:nowrap;
+}
+.filter-btn:hover{border-color:var(--charcoal);}
+.filter-btn.active{background:var(--black);color:#fff;border-color:var(--black);}
+
+.project-count{
+  font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--mg);
+}
+.project-count span{color:var(--black);font-weight:500;}
+
+/* ── SORT ── */
+.sort-select{
+  font-family:'Jost',sans-serif;font-size:.65rem;color:var(--dg);
+  border:1px solid var(--lg);padding:.4rem .8rem;background:#fff;
+  outline:none;border-radius:4px;cursor:pointer;
+}
+
+/* ── SEARCH ── */
+.search-wrap{position:relative;}
+.search-input{
+  font-family:'Jost',sans-serif;font-size:.68rem;color:var(--charcoal);
+  border:1.5px solid var(--lg);padding:.5rem 1rem .5rem 2.2rem;
+  background:#fafaf8;outline:none;border-radius:999px;width:200px;
+  transition:border-color .25s,width .3s;
+}
+.search-input:focus{border-color:var(--charcoal);width:240px;}
+.search-icon{position:absolute;left:.75rem;top:50%;transform:translateY(-50%);font-size:.75rem;color:var(--mg);}
+
+/* ── GRID ── */
+.projects-section{padding:3rem 5rem 6rem;}
+
+/* View toggle */
+.view-toggle{display:flex;gap:.4rem;margin-bottom:2rem;justify-content:flex-end;}
+.vt-btn{background:transparent;border:1px solid var(--lg);padding:.4rem .6rem;cursor:pointer;border-radius:4px;color:var(--mg);font-size:.8rem;transition:all .2s;}
+.vt-btn.active,.vt-btn:hover{background:var(--black);color:#fff;border-color:var(--black);}
+
+/* Grid view */
+.proj-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1.2rem;
+}
+/* List view */
+.proj-grid.list-view{
+  grid-template-columns:1fr;
+  gap:.6rem;
+}
+
+/* ── PROJECT CARD ── */
+.proj-card{
+  background:#fff;border-radius:12px;overflow:hidden;
+  cursor:pointer;transition:transform .3s,box-shadow .3s;
+  text-decoration:none;display:block;
+}
+.proj-card:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(0,0,0,.1);}
+
+.card-img{
+  position:relative;overflow:hidden;
+  aspect-ratio:4/3;background:var(--lg);
+}
+.card-img img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform .6s cubic-bezier(.4,0,.2,1);
+}
+.proj-card:hover .card-img img{transform:scale(1.06);}
+
+.card-cat{
+  position:absolute;top:.9rem;left:.9rem;
+  font-size:.48rem;letter-spacing:.22em;text-transform:uppercase;
+  background:rgba(255,255,255,.92);color:var(--charcoal);
+  padding:.3rem .7rem;border-radius:999px;backdrop-filter:blur(4px);
+}
+.card-featured{
+  position:absolute;top:.9rem;right:.9rem;
+  font-size:.48rem;letter-spacing:.15em;text-transform:uppercase;
+  background:var(--gold);color:#fff;
+  padding:.3rem .7rem;border-radius:999px;
+}
+
+.card-body{padding:1.2rem 1.4rem 1.4rem;}
+.card-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.2rem;font-weight:400;color:var(--black);
+  margin-bottom:.4rem;
+}
+.card-meta{
+  display:flex;gap:1rem;flex-wrap:wrap;
+  font-size:.58rem;letter-spacing:.1em;color:var(--mg);
+}
+.card-meta span{display:flex;align-items:center;gap:.3rem;}
+
+/* ── LIST VIEW CARD ── */
+.list-view .proj-card{
+  display:grid;grid-template-columns:200px 1fr;
+  border-radius:10px;
+}
+.list-view .card-img{aspect-ratio:unset;height:140px;}
+.list-view .card-body{
+  padding:1.2rem 1.5rem;
+  display:flex;flex-direction:column;justify-content:center;
+}
+.list-view .card-title{font-size:1.4rem;}
+
+/* ── SKELETON LOADER ── */
+.skeleton{
+  background:linear-gradient(90deg,#eee 25%,#f5f5f5 50%,#eee 75%);
+  background-size:200% 100%;
+  animation:shimmer 1.4s infinite;
+  border-radius:12px;
+}
+@keyframes shimmer{0%{background-position:200% 0;}100%{background-position:-200% 0;}}
+.skel-card{height:320px;}
+
+/* ── EMPTY STATE ── */
+.empty-state{
+  text-align:center;padding:6rem 2rem;
+  grid-column:1/-1;
+}
+.empty-icon{font-size:3rem;margin-bottom:1rem;}
+.empty-title{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;color:var(--black);margin-bottom:.6rem;}
+.empty-text{font-size:.72rem;color:var(--mg);line-height:1.8;}
+
+/* ── LOAD MORE ── */
+.load-more-wrap{text-align:center;margin-top:3rem;}
+.btn-loadmore{
+  font-family:'Jost',sans-serif;font-size:.62rem;letter-spacing:.25em;
+  text-transform:uppercase;color:var(--black);
+  border:1.5px solid var(--charcoal);padding:.9rem 2.5rem;
+  background:transparent;cursor:pointer;border-radius:4px;
+  transition:all .3s;
+}
+.btn-loadmore:hover{background:var(--black);color:#fff;}
+.btn-loadmore:disabled{border-color:var(--lg);color:var(--mg);cursor:not-allowed;}
+
+/* ── CTA BAND ── */
+.cta-band{
+  background:var(--black);
+  padding:5rem;
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:2rem;
+}
+.cta-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3vw,3rem);font-weight:300;color:#fff;}
+.cta-title em{font-style:italic;color:#666;}
+.btn-cta{
+  font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;
+  color:#fff;border:1px solid #444;padding:.9rem 2rem;
+  text-decoration:none;transition:all .3s;white-space:nowrap;border-radius:4px;
+}
+.btn-cta:hover{background:#fff;color:var(--black);border-color:#fff;}
+
+/* ── FOOTER ── */
+footer{background:var(--black);border-top:1px solid #191917;padding:2.8rem 5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
+.foot-logo{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:300;letter-spacing:.2em;color:#fff;text-transform:uppercase;}
+.foot-links{display:flex;gap:1.8rem;list-style:none;}
+.foot-links a{font-size:.52rem;letter-spacing:.22em;text-transform:uppercase;color:#3a3a3a;text-decoration:none;transition:color .3s;}
+.foot-links a:hover{color:#fff;}
+.foot-copy{font-size:.5rem;letter-spacing:.1em;color:#2a2a2a;}
+
+/* ── REVEAL ANIM ── */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  nav{padding:1.2rem 1.5rem;}
+  .nav-links{display:none;}
+  .page-hero{padding:7rem 1.5rem 3rem;}
+  .filter-bar{padding:1rem 1.2rem;top:60px;}
+  .filters{gap:.4rem;}
+  .search-input{width:140px;}
+  .search-input:focus{width:160px;}
+  .projects-section{padding:2rem 1.2rem 4rem;}
+  .proj-grid{grid-template-columns:1fr 1fr;gap:.8rem;}
+  .skel-card{height:240px;}
+  .cta-band{padding:3rem 1.5rem;}
+  footer{padding:2rem 1.5rem;flex-direction:column;text-align:center;}
+  .cur,.cur-ring{display:none;}
+}
+@media(max-width:560px){
+  .proj-grid{grid-template-columns:1fr;}
+  .list-view .proj-card{grid-template-columns:1fr;}
+  .list-view .card-img{height:200px;}
+}
+</style>
+</head>
+<body>
+
+<!-- Custom Cursor -->
+<div class="cur" id="cur"></div>
+<div class="cur-ring" id="cring"></div>
+
+<!-- ── NAV ── -->
+<nav>
+  <a href="index.html" class="nav-logo">Studio Artha</a>
+  <ul class="nav-links">
+    <li><a href="projects.html" class="active">Projects</a></li>
+    <li><a href="index.html#services">Services</a></li>
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+  <a href="index.html#contact" class="nav-cta">Start a Project</a>
+</nav>
+
+<!-- ── PAGE HERO ── -->
+<section class="page-hero">
+  <span class="ph-eyebrow">Studio Artha Design · Sangli</span>
+  <h1 class="ph-title">Our <em>Projects</em></h1>
+  <p class="ph-desc">A curated collection of residential, commercial, and cultural spaces — each designed to resonate with meaning.</p>
+</section>
+
+<!-- ── FILTER BAR ── -->
+<div class="filter-bar">
+  <div style="display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;gap:1rem;">
+    <div class="filters">
+      <button class="filter-btn active" data-cat="architecture">Architecture</button>
+      <button class="filter-btn" data-cat="interior">Interior</button>
+      <button class="filter-btn" data-cat="landscape">Landscape</button>
+    </div>
+    <div class="project-count">Showing <span id="countNum">—</span> projects</div>
+  </div>
+  <div style="display:flex;align-items:center;gap:.8rem;flex-wrap:wrap;">
+    <div class="search-wrap">
+      <span class="search-icon">⌕</span>
+      <input class="search-input" type="text" id="searchInput" placeholder="Search projects…">
+    </div>
+    <select class="sort-select" id="sortSelect">
+      <option value="default">Sort: Default</option>
+      <option value="newest">Newest First</option>
+      <option value="oldest">Oldest First</option>
+      <option value="az">A → Z</option>
+    </select>
+  </div>
+</div>
+
+<!-- ── PROJECTS GRID ── -->
+<section class="projects-section">
+
+  <div class="view-toggle">
+    <button class="vt-btn active" id="gridBtn" onclick="setView('grid')" title="Grid view">⊞</button>
+    <button class="vt-btn" id="listBtn" onclick="setView('list')" title="List view">☰</button>
+  </div>
+
+  <div class="proj-grid" id="projGrid">
+    <!-- Skeleton loaders shown while fetching -->
+    <div class="skeleton skel-card"></div>
+    <div class="skeleton skel-card"></div>
+    <div class="skeleton skel-card"></div>
+    <div class="skeleton skel-card"></div>
+    <div class="skeleton skel-card"></div>
+    <div class="skeleton skel-card"></div>
+  </div>
+
+  <div class="load-more-wrap" id="loadMoreWrap" style="display:none;">
+    <button class="btn-loadmore" id="loadMoreBtn" onclick="loadMore()">Load More Projects</button>
+  </div>
+</section>
+
+<!-- ── CTA BAND ── -->
+<div class="cta-band">
+  <div class="cta-title">Have a project <em>in mind?</em></div>
+  <a href="index.html#contact" class="btn-cta">Start a Conversation →</a>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="foot-logo">Studio Artha Design</div>
+  <ul class="foot-links">
+    <li><a href="#">Instagram</a></li>
+    <li><a href="#">Facebook</a></li>
+    <li><a href="#">Google Maps</a></li>
+    <li><a href="#">WhatsApp</a></li>
+  </ul>
+  <p class="foot-copy">© 2024 Studio Artha Design, Sangli · Maharashtra</p>
+</footer>
+
+<script>
+// ─────────────────────────────────────────────
+// STATE
+// ─────────────────────────────────────────────
+let allProjects   = [];   // all fetched from API
+let activeFilter  = 'architecture';
+let searchQuery   = '';
+let sortOrder     = 'default';
+let currentView   = 'grid';
+const PER_PAGE    = 9;
+let shownCount    = PER_PAGE;
+
+// ─────────────────────────────────────────────
+// FETCH PROJECTS FROM API
+// ─────────────────────────────────────────────
+async function fetchProjects() {
+  try {
+    const res  = await fetch('/api/get-projects.php?limit=100');
+    const data = await res.json();
+    if (data.success) {
+      allProjects = data.data.projects;
+    } else {
+      allProjects = getDemoProjects(); // fallback demo data
+    }
+  } catch (e) {
+    // If API not available (local dev), use demo data
+    allProjects = getDemoProjects();
+  }
+  renderGrid();
+}
+
+// ─────────────────────────────────────────────
+// FILTER + SEARCH + SORT
+// ─────────────────────────────────────────────
+function getFiltered() {
+  let list = [...allProjects];
+
+  // Category filter — always filter (no "all" option)
+  if (activeFilter) {
+    list = list.filter(p => p.category === activeFilter);
+  }
+
+  // Search
+  if (searchQuery.trim()) {
+    const q = searchQuery.toLowerCase();
+    list = list.filter(p =>
+      p.title.toLowerCase().includes(q) ||
+      (p.location || '').toLowerCase().includes(q) ||
+      (p.category || '').toLowerCase().includes(q)
+    );
+  }
+
+  // Sort
+  if (sortOrder === 'newest') {
+    list.sort((a,b) => (b.year || 0) - (a.year || 0));
+  } else if (sortOrder === 'oldest') {
+    list.sort((a,b) => (a.year || 0) - (b.year || 0));
+  } else if (sortOrder === 'az') {
+    list.sort((a,b) => a.title.localeCompare(b.title));
+  }
+
+  return list;
+}
+
+// ─────────────────────────────────────────────
+// RENDER GRID
+// ─────────────────────────────────────────────
+function renderGrid(reset = true) {
+  if (reset) shownCount = PER_PAGE;
+
+  const filtered = getFiltered();
+  const shown    = filtered.slice(0, shownCount);
+  const grid     = document.getElementById('projGrid');
+
+  document.getElementById('countNum').textContent = filtered.length;
+
+  if (filtered.length === 0) {
+    grid.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-icon">🏛</div>
+        <div class="empty-title">No projects found</div>
+        <p class="empty-text">Try a different category or search term.</p>
+      </div>`;
+    document.getElementById('loadMoreWrap').style.display = 'none';
+    return;
+  }
+
+  grid.innerHTML = shown.map((p, i) => buildCard(p, i)).join('');
+
+  // Load more button
+  const lmw = document.getElementById('loadMoreWrap');
+  if (filtered.length > shownCount) {
+    lmw.style.display = 'block';
+    document.getElementById('loadMoreBtn').disabled = false;
+    document.getElementById('loadMoreBtn').textContent =
+      `Load More (${filtered.length - shownCount} remaining)`;
+  } else {
+    lmw.style.display = 'none';
+  }
+
+  // Scroll reveal
+  requestAnimationFrame(() => {
+    document.querySelectorAll('.proj-card').forEach((el, i) => {
+      el.style.transitionDelay = (i % PER_PAGE) * 0.05 + 's';
+      el.classList.add('reveal');
+      setTimeout(() => el.classList.add('visible'), 50);
+    });
+  });
+
+  // Cursor on cards
+  document.querySelectorAll('.proj-card').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      document.getElementById('cur').style.width  = '13px';
+      document.getElementById('cur').style.height = '13px';
+      document.getElementById('cring').style.width  = '48px';
+      document.getElementById('cring').style.height = '48px';
+    });
+    el.addEventListener('mouseleave', () => {
+      document.getElementById('cur').style.width  = '7px';
+      document.getElementById('cur').style.height = '7px';
+      document.getElementById('cring').style.width  = '32px';
+      document.getElementById('cring').style.height = '32px';
+    });
+  });
+}
+
+function loadMore() {
+  shownCount += PER_PAGE;
+  renderGrid(false);
+}
+
+// ─────────────────────────────────────────────
+// BUILD CARD HTML
+// ─────────────────────────────────────────────
+const catColors = {
+  residential: '#e8f5e9',
+  commercial:  '#e3f2fd',
+  cultural:    '#fff3e0',
+  landscape:   '#f3e5f5',
+  interior:    '#fce4ec',
+};
+const catText = {
+  residential: '#2e7d32',
+  commercial:  '#1565c0',
+  cultural:    '#e65100',
+  landscape:   '#6a1b9a',
+  interior:    '#880e4f',
+};
+
+function buildCard(p, i) {
+  const imgSrc   = p.cover_image
+    ? p.cover_image
+    : `https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600&q=60`;
+  const catLabel = (p.category || 'residential').charAt(0).toUpperCase()
+                 + (p.category || '').slice(1);
+
+  return `
+  <a class="proj-card reveal" href="project-detail.php?slug=${encodeURIComponent(p.slug || p.id)}"
+     style="text-decoration:none;">
+    <div class="card-img">
+      <img src="${imgSrc}" alt="${escHtml(p.title)}" loading="lazy">
+      <span class="card-cat">${catLabel}</span>
+      ${p.is_featured == 1 ? '<span class="card-featured">★ Featured</span>' : ''}
+    </div>
+    <div class="card-body">
+      <div class="card-title">${escHtml(p.title)}</div>
+      <div class="card-meta">
+        ${p.location ? `<span>📍 ${escHtml(p.location)}</span>` : ''}
+        ${p.year     ? `<span>📅 ${p.year}</span>` : ''}
+        ${p.area     ? `<span>📐 ${escHtml(p.area)}</span>` : ''}
+      </div>
+    </div>
+  </a>`;
+}
+
+function escHtml(str) {
+  return String(str || '')
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ─────────────────────────────────────────────
+// FILTER BUTTONS
+// ─────────────────────────────────────────────
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeFilter = btn.dataset.cat;
+    renderGrid();
+  });
+});
+
+// ─────────────────────────────────────────────
+// SEARCH
+// ─────────────────────────────────────────────
+let searchTimeout;
+document.getElementById('searchInput').addEventListener('input', function() {
+  clearTimeout(searchTimeout);
+  searchTimeout = setTimeout(() => {
+    searchQuery = this.value;
+    renderGrid();
+  }, 300);
+});
+
+// ─────────────────────────────────────────────
+// SORT
+// ─────────────────────────────────────────────
+document.getElementById('sortSelect').addEventListener('change', function() {
+  sortOrder = this.value;
+  renderGrid();
+});
+
+// ─────────────────────────────────────────────
+// VIEW TOGGLE (grid / list)
+// ─────────────────────────────────────────────
+function setView(view) {
+  currentView = view;
+  const grid = document.getElementById('projGrid');
+  if (view === 'list') {
+    grid.classList.add('list-view');
+    document.getElementById('listBtn').classList.add('active');
+    document.getElementById('gridBtn').classList.remove('active');
+  } else {
+    grid.classList.remove('list-view');
+    document.getElementById('gridBtn').classList.add('active');
+    document.getElementById('listBtn').classList.remove('active');
+  }
+}
+
+// ─────────────────────────────────────────────
+// CURSOR
+// ─────────────────────────────────────────────
+const cur = document.getElementById('cur');
+const cring = document.getElementById('cring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; });
+(function animCur(){
+  cur.style.left=mx+'px'; cur.style.top=my+'px';
+  rx+=(mx-rx)*.11; ry+=(my-ry)*.11;
+  cring.style.left=rx+'px'; cring.style.top=ry+'px';
+  requestAnimationFrame(animCur);
+})();
+
+// ─────────────────────────────────────────────
+// DEMO DATA (used when API not connected yet)
+// ─────────────────────────────────────────────
+function getDemoProjects() {
+  return [
+    {id:1,title:'Pawar Heights',slug:'pawar-heights',category:'architecture',location:'Sangli, Maharashtra',year:2023,area:'3200 sq.ft',cover_image:'',is_featured:1},
+    {id:2,title:'Galgali House',slug:'galgali-house',category:'architecture',location:'Sangli, Maharashtra',year:2023,area:'2800 sq.ft',cover_image:'',is_featured:1},
+    {id:3,title:'Shree Basav Jewellers',slug:'shree-basav-jewellers',category:'architecture',location:'Sangli, Maharashtra',year:2022,area:'1800 sq.ft',cover_image:'',is_featured:1},
+    {id:4,title:'Modern Living Room',slug:'modern-living-room',category:'interior',location:'Miraj, Maharashtra',year:2022,area:'1200 sq.ft',cover_image:'',is_featured:0},
+    {id:5,title:'Villa Interior',slug:'villa-interior',category:'interior',location:'Sangli, Maharashtra',year:2021,area:'2400 sq.ft',cover_image:'',is_featured:0},
+    {id:6,title:'Garden Residence',slug:'garden-residence',category:'landscape',location:'Kolhapur',year:2021,area:'3000 sq.ft',cover_image:'',is_featured:0},
+    {id:7,title:'Terrace Garden',slug:'terrace-garden',category:'landscape',location:'Sangli',year:2022,area:'800 sq.ft',cover_image:'',is_featured:0},
+  ];
+}
+
+// ─────────────────────────────────────────────
+// INIT
+// ─────────────────────────────────────────────
+fetchProjects();
+</script>
+</body>
+</html>
